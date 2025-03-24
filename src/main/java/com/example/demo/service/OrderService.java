@@ -1,5 +1,6 @@
 package com.example.demo.service;
 
+import com.example.demo.exception.ProductNotFoundException;
 import com.example.demo.model.Order;
 import com.example.demo.model.Product;
 import com.example.demo.repository.OrderRepository;
@@ -22,7 +23,7 @@ public class OrderService {
     public Order createOrder(Long productId, Integer quantity) {
         // Fetch the product
         Product product = productRepository.findById(productId)
-                .orElseThrow(() -> new RuntimeException("Product not found"));
+                .orElseThrow(() -> new  ProductNotFoundException(productId));
 
         // Create the order
         Order order = new Order(quantity, product);
